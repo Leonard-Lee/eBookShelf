@@ -8,6 +8,11 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import com.google.android.gms.maps.*;
+import com.google.android.gms.maps.MapFragment;
+
+import java.util.Map;
+
 
 public class MainActivity extends AppCompatActivity {
     private Fragment fragment;
@@ -25,7 +30,12 @@ public class MainActivity extends AppCompatActivity {
                     fragment = new BooklistFragment();
                     break;
                 case R.id.navigation_map:
-                    fragment = new MapFragment();
+//                    MapFragment mapFragment = new MapFragment();
+//                    android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+//                    android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                    fragmentTransaction.replace(R.id.content, mapFragment).commit();
+//                    return true;
+                    fragment = new MyMapFragment();
                     break;
                 default:
                     fragment = new DownloadFragment();

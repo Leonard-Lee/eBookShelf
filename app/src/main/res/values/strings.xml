@@ -15,4 +15,5 @@
     <string name="pdf4">PDF4 File Location:</string>
     <string name="pdf5">PDF5 File Location:</string>
     <string name="download_btn">Start download</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
