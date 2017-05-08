@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.MapFragment;
@@ -61,4 +62,10 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.content, fragment).commit();
     }
 
+    // Button Click Event
+    public void btnDownloadClicked(View v) {
+        if (fragment instanceof DownloadFragment) {
+            ((DownloadFragment) fragment).btnDownloadClicked(v);
+        }
+    }
 }
