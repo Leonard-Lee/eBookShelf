@@ -53,8 +53,7 @@ public class DownloadFragment extends Fragment {
         txtURL2.setText("http://www.cisco.com/web/about/ac79/docs/innov/IoE_Economy.pdf");
         txtURL3.setText("http://www.cisco.com/c/dam/en_us/solutions/industries/docs/gov/everything-for-cities.pdf");
         txtURL4.setText("http://www.cisco.com/web/offer/gist_ty2_asset/Cisco_2014_ASR.pdf");
-//        txtURL1.setText("http://www.cisco.com/c/dam/en_us/about/annual-report/2016-annual-report-full.pdf");
-        txtURL1.setText("http://www.cisco.com/web/offer/gist_ty2_asset/Cisco_2014_ASR.pdf");
+        txtURL1.setText("http://www.cisco.com/c/dam/en_us/about/annual-report/2016-annual-report-full.pdf");
     }
 
     @Override

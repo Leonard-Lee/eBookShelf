@@ -1,7 +1,10 @@
 package com.example.leonardlee.ebookshelf;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.IBinder;
@@ -14,6 +17,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Date;
+
 
 
 /**
@@ -85,12 +90,38 @@ public class MyDownloadService extends Service {
                 fileOutput.write(buffer, 0, bufferLength);
             }
             fileOutput.close();
+
+            //TODO: a real method for long to int
+            insertBook2DB(fileName, file.getPath(), (int)file.length());
+
             return file.length();
         }
         else {
             return 0;
         }
 
+    }
+
+    // insert book info into database
+    private void insertBook2DB(String fileName, String path, int size) {
+        Book book = new Book();
+        book.setBookname(fileName);
+        book.setPath(path);
+        book.setSize(size);
+
+        //datetime
+        book.setSaveTime(new Date());
+
+        //location
+//        LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+//        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+//        double longitude = location.getLongitude();
+//        double latitude = location.getLatitude();
+//        new LatLng(37.4473, -122.12379);
+        double lng = -122.12379;
+        double lat = 37.4473;
+        book.setLongitude((float)lng);
+        book.setLatitude((float)lat);
     }
 
     private class BackgroundAsyncTask extends AsyncTask<URL, Integer, Long> {
@@ -112,15 +143,15 @@ public class MyDownloadService extends Service {
         protected void onProgressUpdate(Integer... progress) {
             Log.d("Downloading files",
                     String.valueOf(progress[0]) + "% downloaded");
-//            Toast.makeText(getBaseContext(),
-//                    String.valueOf(progress[0]) + "% downloaded",
-//                    Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(),
+                    String.valueOf(progress[0]) + "% downloaded",
+                    Toast.LENGTH_LONG).show();
         }
 
         protected void onPostExecute(Long result) {
-//            Toast.makeText(getActivity(),
-//                    "Downloaded " + result + " bytes",
-//                    Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(),
+                    "Downloaded " + result + " bytes",
+                    Toast.LENGTH_LONG).show();
             stopSelf();
         }
     }
