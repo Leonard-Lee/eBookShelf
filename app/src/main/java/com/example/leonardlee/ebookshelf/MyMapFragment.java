@@ -17,6 +17,8 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.List;
+
 /**
  * Created by leonardlee on 23/04/2017.
  */
@@ -53,20 +55,23 @@ public class MyMapFragment extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap)
     {
         map = googleMap;
-        // Add a marker in Sydney and move the camera
-        LatLng position = new LatLng(37.4473, -122.12179);
-        map.addMarker(new MarkerOptions().position(position).title(bookArray[0]));
-        LatLng position2 = new LatLng(37.4473, -122.12379);
-        map.addMarker(new MarkerOptions().position(position2).title(bookArray[1]));
-        LatLng position3 = new LatLng(37.4573, -122.12179);
-        map.addMarker(new MarkerOptions().position(position3).title(bookArray[2]));
-        LatLng position4 = new LatLng(37.4573, -122.12479);
-        map.addMarker(new MarkerOptions().position(position4).title(bookArray[3]));
+
+        DBHelper db = new DBHelper(getActivity());
+        List<Book> books = db.getAllBooks();
+        LatLng position = null;
+
+        for(int i=0; i<books.size(); i++) {
+            Book book = books.get(i);
+            position = new LatLng(book.getLatitude(), book.getLongitude());
+            map.addMarker(new MarkerOptions().position(position).title(book.getBookname()));
+        }
 
         int ZOOM_LEVEL = 14;
         // In your case, if you want to apply different zoom for different type, make a switch case based on type and set the zoom value
-        map.animateCamera(CameraUpdateFactory.newLatLng(position));
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(position, ZOOM_LEVEL));
+        if(position != null) {
+            map.animateCamera(CameraUpdateFactory.newLatLng(position));
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(position, ZOOM_LEVEL));
+        }
         map.getUiSettings().setZoomControlsEnabled(true);
     }
 }

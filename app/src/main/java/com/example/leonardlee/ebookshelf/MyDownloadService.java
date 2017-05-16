@@ -118,10 +118,14 @@ public class MyDownloadService extends Service {
 //        double longitude = location.getLongitude();
 //        double latitude = location.getLatitude();
 //        new LatLng(37.4473, -122.12379);
+        //TODO: Get GPS INFO
         double lng = -122.12379;
         double lat = 37.4473;
         book.setLongitude((float)lng);
         book.setLatitude((float)lat);
+
+        DBHelper db = new DBHelper(this);
+        db.addBook(book);
     }
 
     private class BackgroundAsyncTask extends AsyncTask<URL, Integer, Long> {
