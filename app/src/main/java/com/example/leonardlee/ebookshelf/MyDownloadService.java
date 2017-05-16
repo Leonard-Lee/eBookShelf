@@ -7,6 +7,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Binder;
+import android.os.Environment;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
@@ -78,7 +79,18 @@ public class MyDownloadService extends Service {
         if(statusCode == 200) {
 //            File sdcard = Environment.getExternalStorageDirectory();
             String fileName = url.toString().substring(url.toString().lastIndexOf('/') + 1);
-            File file = new File(getCacheDir(), fileName);
+
+            File file;
+            // make sure if the external storage mounted on android phone
+            if (Environment.getExternalStorageState().equals(
+                    Environment.MEDIA_MOUNTED)) {
+                file = new File(Environment.getExternalStoragePublicDirectory
+                        (Environment.DIRECTORY_MOVIES), fileName);
+            }
+            else {
+                file = new File(getCacheDir(), fileName);
+            }
+
 
             FileOutputStream fileOutput = new FileOutputStream(file);
             inputStream = connection.getInputStream();
