@@ -54,12 +54,30 @@ public class CustomBookAdapter extends ArrayAdapter<Book> {
                 Log.d("Path: ", path);
 
                 // Open PDF
-                File file = new File(path);
-                Uri uri = FileProvider.getUriForFile(context, "com.example.prov", file);
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                intent.setType("application/pdf");
-                intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                context.startActivity(intent);
+//                File file = new File(path);
+//                Uri uri = Uri.fromFile(file);
+//                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+
+//                Please see the Javadoc of the method setType(String type) in the class Intent:
+//                This method automatically clears any data that was previously set (for example by setData(Uri)).
+//                intent.setType("application/pdf");
+
+//                intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//                context.startActivity(intent);
+
+                File pdfFile = new File(path);//File path
+                if (pdfFile.exists()) //Checking for the file is exist or not
+                {
+                    Uri uri = Uri.fromFile(pdfFile);
+                    Intent objIntent = new Intent(Intent.ACTION_VIEW);
+                    objIntent.setDataAndType(uri, "application/pdf");
+                    objIntent.setFlags(Intent. FLAG_GRANT_READ_URI_PERMISSION);
+                    context.startActivity(objIntent);//Staring the pdf viewer
+                } else {
+
+//                    Toast.makeText(getActivity(), "The file not exists! ", Toast.LENGTH_SHORT).show();
+
+                }
             }
         });
 
