@@ -9,6 +9,8 @@ import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.List;
+
 /**
  * Created by leonardlee on 23/04/2017.
  */
@@ -25,11 +27,13 @@ public class BooklistFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_booklist, container, false);
         ListView listView = (ListView) view.findViewById(R.id.book_list);
 
-//        simple_list_item_1, simple_list_item_2
-//        built-in XML layout document that is part of the Android OS, rather than one of your own XML layouts.
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),
-                                                                android.R.layout.simple_list_item_1,
-                                                                mobileArray);
+        //get all books info from db
+        DBHelper db = new DBHelper(getActivity());
+        List<Book> books = db.getAllBooks();
+
+        // Create the adapter to convert the array to views
+        CustomBookAdapter adapter = new CustomBookAdapter(getActivity(), books);
+        // Attach the adapter to a ListView
         listView.setAdapter(adapter);
         return view;
     }

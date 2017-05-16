@@ -34,14 +34,14 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_BOOK_TABLE_SQL = "CREATE TABLE " + BOOK_TABLE_NAME + ""
-                + BOOK_COLUMN_ID + " INTEGER PRIMARY KEY,"
-                + BOOK_COLUMN_NAME + " TEXT,"
-                + BOOK_COLUMN_PATH + " TEXT,"
-                + BOOK_COLUMN_SIZE + " INTEGER,"
-                + BOOK_COLUMN_LONGITUDE + " REAL,"
-                + BOOK_COLUMN_LATITUDE + " REAL,"
-                + BOOK_COLUMN_SAVE_TIME + " TEXT,"
+        String CREATE_BOOK_TABLE_SQL = "CREATE TABLE " + BOOK_TABLE_NAME + " ("
+                + BOOK_COLUMN_ID + " INTEGER PRIMARY KEY, "
+                + BOOK_COLUMN_NAME + " TEXT, "
+                + BOOK_COLUMN_PATH + " TEXT, "
+                + BOOK_COLUMN_SIZE + " INTEGER, "
+                + BOOK_COLUMN_LONGITUDE + " REAL, "
+                + BOOK_COLUMN_LATITUDE + " REAL, "
+                + BOOK_COLUMN_SAVE_TIME + " TEXT"
                 + ")";
         db.execSQL(CREATE_BOOK_TABLE_SQL);
     }
@@ -70,7 +70,7 @@ public class DBHelper extends SQLiteOpenHelper {
     // query one book by id
     public Book getBook(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String strQuerySQL = "SELECT " + BOOK_TABLE_NAME+ ", " + BOOK_COLUMN_PATH
+        String strQuerySQL = "SELECT " + BOOK_COLUMN_NAME+ ", " + BOOK_COLUMN_PATH
                             + ", " + BOOK_COLUMN_SIZE + ", " + BOOK_COLUMN_LONGITUDE
                             + ", " + BOOK_COLUMN_LATITUDE + ", " + BOOK_COLUMN_SAVE_TIME + " "
                             + "FROM " + BOOK_TABLE_NAME + " "
@@ -94,7 +94,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public List<Book> getAllBooks() {
         List<Book> books = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        String strQuerySQL = "SELECT " + BOOK_TABLE_NAME+ ", "
+        String strQuerySQL = "SELECT " + BOOK_COLUMN_NAME+ ", "
                 + BOOK_COLUMN_PATH + ", "
                 + BOOK_COLUMN_SIZE + ", "
                 + BOOK_COLUMN_LONGITUDE + ", "
